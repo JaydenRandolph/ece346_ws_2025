@@ -54,6 +54,12 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
     while target not in S:
         # Use the Pseudo code from L16 S14 as a guide
         # TODO: Write your code here
+        u = None #placeholder; not visited vertex (S) with smallest known distance
+        min_distance = float('inf')
+        for vertex in range(num_nodes): #finding the univisitedd node with the smallest distance
+            if vertex not in S and L[vertex] < min_distance: #skipping visited nodes and only looking at better nodes. updating as appropriate
+                min_distance = L[vertex] 
+                u = vertex
 
 
         # If no reachable node remains, return empty path
@@ -63,8 +69,16 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
         # Mark node as visited               
         S.add(u)
 
+        #part of the notes with the majority of the pseudocode
         # TODO: Write your code here
-        for v in range(num_nodes):
+        for v in range(num_nodes): #note: node and vertex (v) are the same thing
+            if adj_matrix[u][v] != 0 and v not in S: #the "!=0" sees if there's even a path (edge) from the u to v
+                if L[u] + adj_matrix[u][v] < L[v]: #adj_matrix[u][v] is the weight 
+                    L[v] = L[u] + adj_matrix[u][v]
+                    pred[v] = u
+
+
+            
 
 
 
